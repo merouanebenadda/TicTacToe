@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -37,6 +38,8 @@ private slots:
 
     void on_actionReset_triggered();
 
+    void on_actionDark_Mode_triggered(bool checked);
+
 private:
     Ui::MainWindow *ui;
 
@@ -47,7 +50,12 @@ private:
     int grid[3][3];
     int turnNumber;
     bool gameOver = false;
+    QPushButton* buttons[3][3];
+    const QString defaultButtonColor = "rgb(200, 200, 200)";
+    const QString defaultBackgroundColor = "rgb(230, 230, 230)";
 
+    void applyStyle(QString buttonColor, QString backgroundColor);
+    void buttonClick(int i, int j);
     void checkWin();
     QString nextSymbol(int n);
     bool victory(int grid[3][3], int player);

@@ -1,18 +1,50 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     this->setWindowTitle("Tic Tac Toe");
+
+    buttons[0][0] = ui->Button1;
+    buttons[0][1] = ui->Button2;
+    buttons[0][2] = ui->Button3;
+
+    buttons[1][0] = ui->Button4;
+    buttons[1][1] = ui->Button5;
+    buttons[1][2] = ui->Button6;
+
+    buttons[2][0] = ui->Button7;
+    buttons[2][1] = ui->Button8;
+    buttons[2][2] = ui->Button9;
+
+    for (int i=0; i<3; i++)
+    {
+        for (int j=0; j<3; j++)
+        {
+            buttons[i][j]->setStyleSheet("background-color: " + defaultButtonColor + ";");
+        }
+    }
+    this->setStyleSheet("background-color: " + defaultBackgroundColor + ";");
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::applyStyle(const QString buttonColor, const QString backgroundColor)
+{
+    for (int i=0; i<3; i++)
+    {
+        for (int j=0; j<3; j++)
+        {
+            buttons[i][j]->setStyleSheet("background-color: " + buttonColor + ";");
+        }
+    }
+    this->setStyleSheet("background-color: " + backgroundColor + ";");
 }
 
 bool MainWindow::victory(int grid[3][3], int player) {
@@ -58,118 +90,12 @@ QString MainWindow::nextSymbol(int n)
     return (n%2==0) ? playerSymbol1 : playerSymbol2;
 }
 
-void MainWindow::on_Button1_clicked()
+
+void MainWindow::buttonClick(int i, int j)
 {
-    if (ui->Button1->text().isEmpty() && !(gameOver))
+    if (buttons[i][j]->text().isEmpty() && !(gameOver))
     {
-        ui->Button1->setText(currentPlayerSymbol);
-        turnNumber++;
-        currentPlayerSymbol = nextSymbol(turnNumber);
-        ui->currentPlayerLabel->setText((turnNumber%2==0) ? "1" : "2");
-        grid[0][0] = turnNumber%2+1;
-        checkWin();
-    }
-
-
-}
-
-void MainWindow::on_Button2_clicked()
-{
-    if (ui->Button2->text().isEmpty() && !(gameOver))
-    {
-        ui->Button2->setText(currentPlayerSymbol);
-        turnNumber++;
-        currentPlayerSymbol = nextSymbol(turnNumber);
-        ui->currentPlayerLabel->setText((turnNumber%2==0) ? "1" : "2");
-        grid[0][1] = turnNumber%2+1;
-        checkWin();
-    }
-
-}
-
-void MainWindow::on_Button3_clicked()
-{
-    if (ui->Button3->text().isEmpty() && !(gameOver))
-    {
-        ui->Button3->setText(currentPlayerSymbol);
-        turnNumber++;
-        currentPlayerSymbol = nextSymbol(turnNumber);
-        ui->currentPlayerLabel->setText((turnNumber%2==0) ? "1" : "2");
-        grid[0][2] = turnNumber%2+1;
-        checkWin();
-    }
-}
-
-void MainWindow::on_Button4_clicked()
-{
-    if (ui->Button4->text().isEmpty() && !(gameOver))
-    {
-        ui->Button4->setText(currentPlayerSymbol);
-        turnNumber++;
-        currentPlayerSymbol = nextSymbol(turnNumber);
-        ui->currentPlayerLabel->setText((turnNumber%2==0) ? "1" : "2");
-        grid[1][0] = turnNumber%2+1;
-        checkWin();
-    }
-}
-
-void MainWindow::on_Button5_clicked()
-{
-    if (ui->Button5->text().isEmpty() && !(gameOver))
-    {
-        ui->Button5->setText(currentPlayerSymbol);
-        turnNumber++;
-        currentPlayerSymbol = nextSymbol(turnNumber);
-        ui->currentPlayerLabel->setText((turnNumber%2==0) ? "1" : "2");
-        grid[1][1] = turnNumber%2+1;
-        checkWin();
-    }
-}
-
-void MainWindow::on_Button6_clicked()
-{
-    if (ui->Button6->text().isEmpty() && !(gameOver))
-    {
-        ui->Button6->setText(currentPlayerSymbol);
-        turnNumber++;
-        currentPlayerSymbol = nextSymbol(turnNumber);
-        ui->currentPlayerLabel->setText((turnNumber%2==0) ? "1" : "2");
-        grid[1][2] = turnNumber%2+1;
-        checkWin();
-    }
-}
-
-void MainWindow::on_Button7_clicked()
-{
-    if (ui->Button7->text().isEmpty() && !(gameOver))
-    {
-        ui->Button7->setText(currentPlayerSymbol);
-        turnNumber++;
-        currentPlayerSymbol = nextSymbol(turnNumber);
-        ui->currentPlayerLabel->setText((turnNumber%2==0) ? "1" : "2");
-        grid[2][0] = turnNumber%2+1;
-        checkWin();
-    }
-}
-
-void MainWindow::on_Button8_clicked()
-{
-    if (ui->Button8->text().isEmpty() && !(gameOver))
-    {
-        ui->Button8->setText(currentPlayerSymbol);
-        turnNumber++;
-        currentPlayerSymbol = nextSymbol(turnNumber);
-        ui->currentPlayerLabel->setText((turnNumber%2==0) ? "1" : "2");
-        grid[2][1] = turnNumber%2+1;
-        checkWin();
-    }
-}
-
-void MainWindow::on_Button9_clicked()
-{
-    if (ui->Button9->text().isEmpty() && !(gameOver))
-    {
-        ui->Button9->setText(currentPlayerSymbol);
+        buttons[i][j]->setText(currentPlayerSymbol);
         turnNumber++;
         currentPlayerSymbol = nextSymbol(turnNumber);
         ui->currentPlayerLabel->setText((turnNumber%2==0) ? "1" : "2");
@@ -178,20 +104,63 @@ void MainWindow::on_Button9_clicked()
     }
 }
 
+void MainWindow::on_Button1_clicked()
+{
+    buttonClick(0,0);
+}
+
+void MainWindow::on_Button2_clicked()
+{
+    buttonClick(0,1);
+}
+
+void MainWindow::on_Button3_clicked()
+{
+    buttonClick(0, 2);
+}
+
+void MainWindow::on_Button4_clicked()
+{
+    buttonClick(1, 0);
+}
+
+void MainWindow::on_Button5_clicked()
+{
+    buttonClick(1, 1);
+}
+
+void MainWindow::on_Button6_clicked()
+{
+    buttonClick(1, 2);
+}
+
+void MainWindow::on_Button7_clicked()
+{
+    buttonClick(2, 0);
+}
+
+void MainWindow::on_Button8_clicked()
+{
+    buttonClick(2, 1);
+}
+
+void MainWindow::on_Button9_clicked()
+{
+    buttonClick(2, 2);
+}
+
 
 
 
 void MainWindow::on_actionReset_triggered()
 {
-    ui->Button1->setText("");
-    ui->Button2->setText("");
-    ui->Button3->setText("");
-    ui->Button4->setText("");
-    ui->Button5->setText("");
-    ui->Button6->setText("");
-    ui->Button7->setText("");
-    ui->Button8->setText("");
-    ui->Button9->setText("");
+    for (int i=0; i<3; i++)
+    {
+        for (int j=0; j<3; j++)
+        {
+            buttons[i][j]->setText("");
+        }
+    }
 
     ui->currentPlayerLabel->setText("1");
     ui->winnerLabel->setText("");
@@ -210,5 +179,19 @@ void MainWindow::on_actionReset_triggered()
     ui->currentPlayerLabel->setText("1");
 
 
+}
+
+
+void MainWindow::on_actionDark_Mode_triggered(bool checked)
+{
+    if (checked)
+    {
+        applyStyle("rgb(69, 69, 69)","rgb(96, 96, 96)");
+    }
+
+    else
+    {
+        applyStyle(defaultButtonColor, defaultBackgroundColor);
+    }
 }
 

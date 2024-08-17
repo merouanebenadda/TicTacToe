@@ -185,6 +185,7 @@
      <string>Options</string>
     </property>
     <addaction name="actionReset"/>
+    <addaction name="actionDark_Mode"/>
    </widget>
    <addaction name="menuOptions"/>
   </widget>
@@ -192,6 +193,17 @@
   <action name="actionReset">
    <property name="text">
     <string>New Game</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionDark_Mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Dark Mode</string>
    </property>
   </action>
  </widget>
