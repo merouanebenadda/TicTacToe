@@ -35,13 +35,22 @@ private slots:
 
     void on_Button9_clicked();
 
+    void on_actionReset_triggered();
+
 private:
     Ui::MainWindow *ui;
 
 private:
-    QString currentPlayerSymbol = "x";
+    const QString playerSymbol1 = "x";
+    const QString playerSymbol2 = "o";
+    QString currentPlayerSymbol = playerSymbol1;
+    int grid[3][3];
     int turnNumber;
+    bool gameOver = false;
+
     void checkWin();
+    QString nextSymbol(int n);
+    bool victory(int grid[3][3], int player);
 
 
 };
